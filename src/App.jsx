@@ -15,7 +15,7 @@ const STORAGE_KEY = "icetel_cache_datos_v1";
 // contraste se note incluso en TVs viejas / paneles LCD desgastados que
 // desaturan y oscurecen los tonos intermedios.
 const COLOR_PREOCUPANTE = "#FF0044";
-const COLOR_KWF_OK = "#ff00c8";
+const COLOR_KWF_OK = "#00FF66";
 const COLOR_ENERGIA_OK = "#00B3FF";
 const COLOR_CARGA_TI = "#FF6A00";
 const COLOR_UPS_KW = "#FFD500";
