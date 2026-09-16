@@ -16,9 +16,9 @@ const STORAGE_KEY = "icetel_cache_datos_v1";
 // desaturan y oscurecen los tonos intermedios.
 const COLOR_PREOCUPANTE = "#FF0044";
 const COLOR_KWF_OK = "#00FF66";
-const COLOR_ENERGIA_OK = "#00b3ff79";
+const COLOR_ENERGIA_OK = "#5dceffef";
 const COLOR_CARGA_TI = "#FF6A00";
-const COLOR_UPS_KW = "#ffd5007c";
+const COLOR_UPS_KW = "#ffe251";
 const UMBRAL_KWF = 50;
 const UMBRAL_CARGA_UPS = 80;
 const UMBRAL_TEMP = 28;
