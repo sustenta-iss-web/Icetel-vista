@@ -2,39 +2,67 @@
 
 :root,
 [data-theme="light"] {
-  --bg-app: #f1f5f9;
+  --bg-app: #e7edf4;
   --bg-card: #ffffff;
-  --bg-card-subtle: #f8fafc;
+  --bg-card-subtle: #f4f7fb;
   --bg-modal: #ffffff;
-  --bg-modal-overlay: rgba(15, 23, 42, 0.6);
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
-  --border-card: #cbd5e1;
-  --border-subtle: #e2e8f0;
-  --divider: #cbd5e1;
-  --badge-bg: #f8fafc;
-  --badge-border: #cbd5e1;
-  --badge-text: #475569;
-  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08);
-  --header-clima: #1e293b;
-  --header-clima-border: #94a3b8;
-  --header-energia: #b45309;
-  --header-energia-border: #f59e0b;
-  --metric-temp-bg: rgba(2, 132, 199, 0.12);
-  --metric-temp-border: rgba(2, 132, 199, 0.32);
-  --metric-temp-text: #0284c7;
-  --metric-hum-bg: rgba(14, 165, 233, 0.12);
-  --metric-hum-border: rgba(14, 165, 233, 0.32);
-  --metric-hum-text: #0891b2;
-  --metric-chiller-surt-bg: rgba(13, 148, 136, 0.12);
-  --metric-chiller-surt-border: rgba(13, 148, 136, 0.32);
-  --metric-chiller-surt-text: #0f766e;
-  --metric-chiller-ret-bg: rgba(2, 132, 199, 0.12);
-  --metric-chiller-ret-border: rgba(2, 132, 199, 0.32);
-  --metric-chiller-ret-text: #0369a1;
-  --scrollbar-thumb: #94a3b8;
-  --scrollbar-track: #e2e8f0;
+  --bg-modal-overlay: rgba(15, 23, 42, 0.5);
+  --text-primary: #0d1726;
+  --text-secondary: #33415c;
+  --text-muted: #5c6b84;
+  --border-card: #ccd6e2;
+  --border-subtle: #dfe7f0;
+  --divider: #cbd8e6;
+  --badge-bg: #f4f7fb;
+  --badge-border: #d6e0ec;
+  --badge-text: #46566e;
+  --metric-label: #5b6b83;
+  --shadow-card: 0 1px 2px 0 rgba(13, 23, 38, 0.05), 0 8px 20px -8px rgba(13, 23, 38, 0.14);
+  --header-clima: #13406d;
+  --header-clima-border: #9db8d8;
+  --header-energia: #9a3a10;
+  --header-energia-border: #e89b12;
+  --metric-temp-bg: rgba(11, 111, 196, 0.1);
+  --metric-temp-border: rgba(11, 111, 196, 0.35);
+  --metric-temp-text: #0b6fc4;
+  --metric-hum-bg: rgba(13, 145, 138, 0.1);
+  --metric-hum-border: rgba(13, 145, 138, 0.35);
+  --metric-hum-text: #0d918a;
+  --metric-kwf-bg: rgba(21, 128, 61, 0.1);
+  --metric-kwf-border: rgba(21, 128, 61, 0.35);
+  --metric-kwf-text: #15803d;
+  --metric-ti-bg: rgba(234, 88, 12, 0.1);
+  --metric-ti-border: rgba(234, 88, 12, 0.35);
+  --metric-ti-text: #ea580c;
+  --metric-chiller-surt-bg: rgba(14, 138, 131, 0.1);
+  --metric-chiller-surt-border: rgba(14, 138, 131, 0.35);
+  --metric-chiller-surt-text: #0e8a83;
+  --metric-chiller-ret-bg: rgba(5, 99, 168, 0.1);
+  --metric-chiller-ret-border: rgba(5, 99, 168, 0.35);
+  --metric-chiller-ret-text: #0563a8;
+  --estado-ok-color: #15803d;
+  --estado-ok-bg: rgba(21, 128, 61, 0.12);
+  --estado-ok-borde: rgba(21, 128, 61, 0.32);
+  --estado-nok-color: #b91c1c;
+  --estado-nok-bg: rgba(185, 28, 28, 0.12);
+  --estado-nok-borde: rgba(185, 28, 28, 0.32);
+  --estado-standby-color: #b45309;
+  --estado-standby-bg: rgba(202, 138, 4, 0.14);
+  --estado-standby-borde: rgba(202, 138, 4, 0.36);
+  /* Estados como texto: verde/rojo/amarillo legibles en ambos temas */
+  --estado-text-ok: #16a34a;
+  --estado-text-nok: #dc2626;
+  --estado-text-standby: #d97706;
+  /* Modales: valores coherentes con el tema claro */
+  --modal-kw-valor: #4f46e5;
+  --modal-carga-ti-badge-bg: rgba(234, 88, 12, 0.12);
+  --modal-carga-ti-badge-color: #c2410c;
+  --modal-carga-ti-badge-borde: rgba(234, 88, 12, 0.32);
+  --modal-carga-ups-badge-bg: rgba(21, 128, 61, 0.12);
+  --modal-carga-ups-badge-color: #15803d;
+  --modal-carga-ups-badge-borde: rgba(21, 128, 61, 0.32);
+  --scrollbar-thumb: #93a5bd;
+  --scrollbar-track: #dde6f0;
   color-scheme: light;
 }
 
@@ -53,6 +81,7 @@
   --badge-bg: #020617;
   --badge-border: #1e293b;
   --badge-text: #94a3b8;
+  --metric-label: #94a3b8;
   --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
   --header-clima: #cbd5e1;
   --header-clima-border: #334155;
@@ -64,12 +93,39 @@
   --metric-hum-bg: rgba(8, 51, 68, 0.3);
   --metric-hum-border: rgba(14, 116, 144, 0.5);
   --metric-hum-text: #22d3ee;
+  --metric-kwf-bg: rgba(6, 78, 59, 0.3);
+  --metric-kwf-border: rgba(16, 185, 129, 0.5);
+  --metric-kwf-text: #34d399;
+  --metric-ti-bg: rgba(67, 20, 7, 0.3);
+  --metric-ti-border: rgba(249, 115, 22, 0.5);
+  --metric-ti-text: #fb923c;
   --metric-chiller-surt-bg: rgba(19, 78, 74, 0.3);
   --metric-chiller-surt-border: rgba(15, 118, 110, 0.5);
   --metric-chiller-surt-text: #2dd4bf;
   --metric-chiller-ret-bg: rgba(12, 74, 110, 0.3);
   --metric-chiller-ret-border: rgba(3, 105, 161, 0.5);
   --metric-chiller-ret-text: #38bdf8;
+  --estado-ok-color: #020617;
+  --estado-ok-bg: #22c55e;
+  --estado-ok-borde: #16a34a;
+  --estado-nok-color: #ffffff;
+  --estado-nok-bg: #ef4444;
+  --estado-nok-borde: #dc2626;
+  --estado-standby-color: #020617;
+  --estado-standby-bg: #f59e0b;
+  --estado-standby-borde: #d97706;
+  /* Estados como texto: verde/rojo/amarillo vivos sobre fondo oscuro */
+  --estado-text-ok: #22c55e;
+  --estado-text-nok: #ef4444;
+  --estado-text-standby: #f59e0b;
+  /* Modales: conserva exactamente los valores originales del modo oscuro */
+  --modal-kw-valor: #6366f1;
+  --modal-carga-ti-badge-bg: rgba(245, 158, 11, 0.15);
+  --modal-carga-ti-badge-color: #d97706;
+  --modal-carga-ti-badge-borde: rgba(245, 158, 11, 0.3);
+  --modal-carga-ups-badge-bg: rgba(16, 185, 129, 0.15);
+  --modal-carga-ups-badge-color: #10b981;
+  --modal-carga-ups-badge-borde: rgba(16, 185, 129, 0.3);
   --scrollbar-thumb: #475569;
   --scrollbar-track: #0f172a;
   color-scheme: dark;
@@ -106,4 +162,39 @@ body,
 *::-webkit-scrollbar-thumb {
   background-color: var(--scrollbar-thumb);
   border-radius: 4px;
+}
+
+/* --- Modo claro: hover y micro-interacciones (el oscuro no se modifica) --- */
+[data-theme="light"] .metric-btn {
+  transition: filter 0.15s ease, transform 0.05s ease;
+}
+
+[data-theme="light"] .metric-btn:hover {
+  filter: brightness(0.94);
+}
+
+[data-theme="light"] .metric-btn:active {
+  transform: scale(0.99);
+}
+
+[data-theme="light"] .btn-tema,
+[data-theme="light"] .btn-estado {
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+[data-theme="light"] .btn-tema:hover,
+[data-theme="light"] .btn-estado:hover {
+  background-color: var(--bg-card-subtle);
+  border-color: var(--badge-border);
+  box-shadow: 0 4px 12px -4px rgba(13, 23, 38, 0.25);
+}
+
+[data-theme="light"] .btn-novedades {
+  transition: filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-theme="light"] .btn-novedades:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 4px 12px -4px rgba(6, 182, 212, 0.5);
 }

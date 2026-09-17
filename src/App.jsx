@@ -16,10 +16,6 @@ const STORAGE_KEY = "icetel_cache_datos_v1";
 // calibrados para alta visibilidad a distancia (pantallas industriales / TVs)
 // sin restar legibilidad ni contraste a los textos, números y porcentajes.
 const COLOR_PREOCUPANTE = "#FF1744"; // Rojo emergencia vibrante (texto blanco con sombra nítida)
-const COLOR_KWF_OK = "#00E676";      // Verde esmeralda óptico (texto oscuro AAA > 10:1)
-const COLOR_ENERGIA_OK = "#00D2FF";  // Cian eléctrico puro (texto oscuro AAA > 11:1)
-const COLOR_CARGA_TI = "#FF7A00";    // Naranja industrial nítido (texto oscuro AAA > 9:1)
-const COLOR_UPS_KW = "#FFD000";      // Oro ámbar brillante (texto oscuro AAA > 14:1)
 const UMBRAL_KWF = 50;
 const UMBRAL_CARGA_UPS = 80;
 const UMBRAL_TEMP = 28;
@@ -32,80 +28,26 @@ const hexA = (hex, alpha) => {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 
-// Devuelve un color de texto (blanco puro o negro pizarra profundo #020617) que
-// garantiza contraste óptimo (>7:1) sobre cualquier fondo hex.
-const getContrastText = (hex) => {
-  if (!hex) return "#ffffff";
-  const h = hex.replace("#", "").slice(0, 6);
-  if (h.length < 6) return "#ffffff";
-  const r = parseInt(h.substring(0, 2), 16);
-  const g = parseInt(h.substring(2, 4), 16);
-  const b = parseInt(h.substring(4, 6), 16);
-  if (isNaN(r) || isNaN(g) || isNaN(b)) return "#ffffff";
-  // Umbral perceptual YIQ calibrado: tonos medios/luminosos (como el naranja #FF7A00, yiq 147)
-  // reciben texto negro sólido (#020617), evitando el error de texto blanco sobre naranja.
-  const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-  return yiq >= 128 ? "#020617" : "#ffffff";
-};
-
-// Devuelve sombra de texto sutil para aumentar nitidez a la distancia cuando el texto es blanco
-const getTextShadow = (hex) => {
-  const textColor = getContrastText(hex);
-  return textColor === "#ffffff" ? "0 1px 2px rgba(0, 0, 0, 0.7)" : "none";
-};
-
-const TEXTO_CARGA_TI = getContrastText(COLOR_CARGA_TI);
-
-// --- PALETA DE ESTADOS (badges sólidos de máximo contraste) ---
-const COLOR_ESTADO_OK = "#22c55e";
-const COLOR_ESTADO_NOK = "#ef4444";
-const COLOR_ESTADO_STANDBY = "#f59e0b";
-
+// --- PALETA DE ESTADOS ---
+// Cada estado se muestra como TEXTO de color (sin recuadro) para que no se vea
+// tosco: verde = OK, rojo = NOK, amarillo = STAND BY, legible en ambos temas.
 // Estilo de badge para la bandera de un equipo (val) del detalle KWF:
-// null = STAND BY, 1 = 100%, 0.5 = 50%, 0 = 0%. Fondo sólido a máxima
-// saturación + texto con contraste garantizado (visible en claro y oscuro).
+// null = STAND BY, 1 = 100%, 0.5 = 50%, 0 = 0%.
 const estiloBadgeVal = (val) => {
   if (val === null || val === 0.5) {
-    return {
-      bg: COLOR_ESTADO_STANDBY,
-      color: getContrastText(COLOR_ESTADO_STANDBY),
-      borde: "#d97706",
-    };
+    return "var(--estado-text-standby)";
   }
   if (val === 1) {
-    return {
-      bg: COLOR_ESTADO_OK,
-      color: getContrastText(COLOR_ESTADO_OK),
-      borde: "#16a34a",
-    };
+    return "var(--estado-text-ok)";
   }
-  return {
-    bg: COLOR_ESTADO_NOK,
-    color: getContrastText(COLOR_ESTADO_NOK),
-    borde: "#dc2626",
-  };
+  return "var(--estado-text-nok)";
 };
 
-// Estilo de pill para el estado de un circuito (OK / NOK / STAND BY / otro).
+// Estilo de texto para el estado de un circuito (OK / NOK / STAND BY / otro).
 const estiloEstadoCircuito = (c) => {
-  if (c === "OK")
-    return {
-      bg: COLOR_ESTADO_OK,
-      color: getContrastText(COLOR_ESTADO_OK),
-      borde: "#16a34a",
-    };
-  if (c === "NOK")
-    return {
-      bg: COLOR_ESTADO_NOK,
-      color: getContrastText(COLOR_ESTADO_NOK),
-      borde: "#dc2626",
-    };
-  if (c === "STAND BY")
-    return {
-      bg: COLOR_ESTADO_STANDBY,
-      color: getContrastText(COLOR_ESTADO_STANDBY),
-      borde: "#d97706",
-    };
+  if (c === "OK") return "var(--estado-text-ok)";
+  if (c === "NOK") return "var(--estado-text-nok)";
+  if (c === "STAND BY") return "var(--estado-text-standby)";
   return null;
 };
 
@@ -214,15 +156,15 @@ const useAlturaDisponible = (margenInferior) => {
 };
 
 // --- MODALES ---
-// Pill de estado de circuito (OK / NOK / STAND BY) con fondo sólido y texto
-// de alto contraste, para que no se pierda en modo claro.
+// Estado de circuito (OK / NOK / STAND BY / otro) como texto de color:
+// verde = OK, rojo = NOK, amarillo = STAND BY.
 const PillEstado = ({ valor }) => {
   const est = estiloEstadoCircuito(valor);
   if (!est)
     return (
       <span
         style={{
-          fontSize: "12px",
+          fontSize: "13px",
           fontWeight: 800,
           color: "var(--text-muted)",
         }}
@@ -233,14 +175,9 @@ const PillEstado = ({ valor }) => {
   return (
     <span
       style={{
-        padding: "2px 8px",
-        borderRadius: "6px",
-        fontSize: "12px",
+        fontSize: "13px",
         fontWeight: 800,
-        backgroundColor: est.bg,
-        color: est.color,
-        border: `1px solid ${est.borde}`,
-        boxShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
+        color: est,
       }}
     >
       {valor}
@@ -251,6 +188,17 @@ const PillEstado = ({ valor }) => {
 const ModalDetalle = ({ config, onClose }) => {
   const { sala, metrica } = config;
   if (!sala || !metrica) return null;
+
+  const colorAcento =
+    metrica === "temperatura"
+      ? "var(--metric-temp-text)"
+      : metrica === "humedad"
+        ? "var(--metric-hum-text)"
+        : metrica === "kwf"
+          ? "var(--metric-kwf-text)"
+          : metrica === "cargati"
+            ? "var(--metric-ti-text)"
+            : "var(--header-energia)";
 
   let titulo = "";
   let contenido = null;
@@ -369,11 +317,11 @@ const ModalDetalle = ({ config, onClose }) => {
               style={{
                 backgroundColor: "var(--bg-card-subtle)",
                 borderRadius: "10px",
-                padding: "10px",
+                padding: "10px 14px",
                 border: "1px solid var(--border-subtle)",
                 display: "flex",
                 flexDirection: "column",
-                gap: "8px",
+                gap: "10px",
               }}
             >
               <div
@@ -381,23 +329,18 @@ const ModalDetalle = ({ config, onClose }) => {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  borderBottom: "1px solid var(--border-subtle)",
-                  paddingBottom: "6px",
+borderBottom: "1px solid var(--border-subtle)",
+                  paddingBottom: "8px",
                 }}
               >
-                <span style={{ fontWeight: "bold", color: "var(--text-primary)" }}>
+                <span style={{ fontWeight: "bold", color: "var(--text-primary)", fontSize: "14px" }}>
                   {sala.nombre} - {eq.equipo}
                 </span>
                 <span
                   style={{
-                    padding: "3px 8px",
-                    borderRadius: 6,
-                    fontSize: 11,
+                    fontSize: "13px",
                     fontWeight: 800,
-                    backgroundColor: estiloBadgeVal(eq.val).bg,
-                    color: estiloBadgeVal(eq.val).color,
-                    border: `1px solid ${estiloBadgeVal(eq.val).borde}`,
-                    boxShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
+                    color: estiloBadgeVal(eq.val),
                   }}
                 >
                   {eq.val === null ? "STAND BY" : `${eq.val * 100}%`}
@@ -413,9 +356,16 @@ const ModalDetalle = ({ config, onClose }) => {
                     border: "1px solid var(--badge-border)",
                     display: "flex",
                     justifyContent: "space-between",
+                    alignItems: "center",
                   }}
                 >
-                  <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: 700,
+                      color: "var(--text-muted)",
+                    }}
+                  >
                     Circuito 1
                   </span>
                   <PillEstado valor={eq.c1} />
@@ -429,9 +379,16 @@ const ModalDetalle = ({ config, onClose }) => {
                     border: "1px solid var(--badge-border)",
                     display: "flex",
                     justifyContent: "space-between",
+                    alignItems: "center",
                   }}
                 >
-                  <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: 700,
+                      color: "var(--text-muted)",
+                    }}
+                  >
                     Circuito 2
                   </span>
                   <PillEstado valor={eq.c2} />
@@ -492,12 +449,12 @@ const ModalDetalle = ({ config, onClose }) => {
           <span style={{ color: "var(--text-muted)" }}>Porcentaje de Carga</span>
           <span
             style={{
-              color: "#d97706",
+              color: "var(--modal-carga-ti-badge-color)",
               fontWeight: "bold",
-              backgroundColor: "rgba(245, 158, 11, 0.15)",
+              backgroundColor: "var(--modal-carga-ti-badge-bg)",
               padding: "4px 10px",
               borderRadius: "6px",
-              border: "1px solid rgba(245, 158, 11, 0.3)",
+              border: "1px solid var(--modal-carga-ti-badge-borde)",
             }}
           >
             {fmtPorcentaje(sala.cargaTi)}
@@ -541,7 +498,7 @@ const ModalDetalle = ({ config, onClose }) => {
           }}
         >
           <span style={{ color: "var(--text-muted)" }}>KW Término</span>
-          <span style={{ color: "#6366f1", fontWeight: "bold" }}>
+          <span style={{ color: "var(--modal-kw-valor)", fontWeight: "bold" }}>
             {fmt(sala.kvaTermino)}
           </span>
         </div>
@@ -555,12 +512,12 @@ const ModalDetalle = ({ config, onClose }) => {
           <span style={{ color: "var(--text-muted)" }}>Porcentaje Carga</span>
           <span
             style={{
-              color: "#10b981",
+              color: "var(--modal-carga-ups-badge-color)",
               fontWeight: "bold",
-              backgroundColor: "rgba(16, 185, 129, 0.15)",
+              backgroundColor: "var(--modal-carga-ups-badge-bg)",
               padding: "4px 10px",
               borderRadius: "6px",
-              border: "1px solid rgba(16, 185, 129, 0.3)",
+              border: "1px solid var(--modal-carga-ups-badge-borde)",
             }}
           >
             {fmtPorcentaje(sala.porcentajeCarga)}
@@ -595,7 +552,7 @@ const ModalDetalle = ({ config, onClose }) => {
           boxShadow: "var(--shadow-card)",
           borderRadius: "14px",
           width: "100%",
-          maxWidth: "420px",
+          maxWidth: metrica === "kwf" ? "800px" : "420px",
           maxHeight: "80vh",
           display: "flex",
           flexDirection: "column",
@@ -617,8 +574,20 @@ const ModalDetalle = ({ config, onClose }) => {
               fontWeight: "bold",
               color: "var(--text-primary)",
               margin: 0,
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
             }}
           >
+            <span
+              style={{
+                width: "10px",
+                height: "10px",
+                borderRadius: "3px",
+                backgroundColor: colorAcento,
+                flexShrink: 0,
+              }}
+            />
             {titulo}
           </h3>
           <button
@@ -961,13 +930,6 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
   const pctKwf = datos.porcentajeOperativo;
   const hayDatoKwf = pctKwf !== undefined && pctKwf !== null;
   const kwfCritico = hayDatoKwf && pctKwf <= UMBRAL_KWF;
-  const colorKwf = hayDatoKwf
-    ? kwfCritico
-      ? COLOR_PREOCUPANTE
-      : COLOR_KWF_OK
-    : null;
-  // Color plano (sin transparencia) y su texto de contraste correspondiente
-  const textoKwf = colorKwf ? getContrastText(colorKwf) : "#c084fc";
 
   const temp = datos.temperatura;
   const hayDatoTemp = temp !== undefined && temp !== null;
@@ -1045,12 +1007,12 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
             }}
           >
             Max KWF:{" "}
-            <strong style={{ color: "var(--header-energia)", fontWeight: "800", fontVariantNumeric: "tabular-nums" }}>{fmt(datos.maxKwf)}</strong>
+            <strong style={{ color: "var(--text-primary)", fontWeight: "800", fontVariantNumeric: "tabular-nums" }}>{fmt(datos.maxKwf)}</strong>
           </span>
           <span
             style={{
               fontSize: "12px",
-              color: "var(--badge-text)",
+              color: "var(--text-primary)",
               backgroundColor: "var(--badge-bg)",
               padding: "2px 6px",
               borderRadius: "4px",
@@ -1059,7 +1021,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
             }}
           >
             Max TI:{" "}
-            <strong style={{ color: "var(--header-energia)", fontWeight: "800", fontVariantNumeric: "tabular-nums" }}>{fmt(datos.maxTi)}</strong>
+            <strong style={{ color: "var(--text-primary)", fontWeight: "800", fontVariantNumeric: "tabular-nums" }}>{fmt(datos.maxTi)}</strong>
           </span>
         </div>
       </div>
@@ -1077,7 +1039,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
             si es crítico, la clase .efecto-baliza se encarga de parpadear a rojo. */}
         <button
           onClick={() => onClickMetrica(datos, "temperatura")}
-          className={claseTemp}
+          className={`${claseTemp} metric-btn`}
           style={{
             width: "calc(50% - 3px)",
             height: "calc(50% - 3px)",
@@ -1101,7 +1063,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
               fontSize: "9px",
               fontWeight: "800",
               letterSpacing: "0.5px",
-              color: tempCritica ? "#ffffff" : "var(--text-muted)",
+              color: tempCritica ? "#ffffff" : "var(--metric-label)",
               textTransform: "uppercase",
               textShadow: tempCritica ? "0 1px 2px rgba(0,0,0,0.6)" : "none",
             }}
@@ -1123,6 +1085,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
 
         <button
           onClick={() => onClickMetrica(datos, "humedad")}
+          className="metric-btn"
           style={{
             width: "calc(50% - 3px)",
             height: "calc(50% - 3px)",
@@ -1145,7 +1108,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
               fontSize: "9px",
               fontWeight: "800",
               letterSpacing: "0.5px",
-              color: "var(--text-muted)",
+              color: "var(--metric-label)",
               textTransform: "uppercase",
             }}
           >
@@ -1163,6 +1126,10 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
           </span>
         </button>
 
+        {/* UNION KWF + Carga TI - un solo recuadro que se desplaza por
+            porcentajes. Colores originales (verde KWF / naranja Carga TI)
+            en versión sutil (fondo translúcido + borde + texto), igual que
+            T° y H%. Si KWF es crítico, pasa a rojo de emergencia. */}
         <div
           style={{
             width: "100%",
@@ -1171,18 +1138,19 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
             display: "flex",
             borderRadius: "8px",
             overflow: "hidden",
-            border: `1px solid ${kwfCritico ? "#ff4d5e" : "var(--border-subtle)"}`,
+            border: `1px solid ${
+              kwfCritico ? "#ff4d5e" : "var(--border-subtle)"
+            }`,
             boxShadow: kwfCritico
               ? `0 0 14px 2px ${hexA(COLOR_PREOCUPANTE, 0.75)}`
-              : `0 0 10px 1px ${hexA(colorKwf || COLOR_CARGA_TI, 0.35)}`,
+              : "none",
             transition: "border-color 0.4s ease, box-shadow 0.4s ease",
             minHeight: 0,
             boxSizing: "border-box",
           }}
         >
-          {/* Fondo plano (sin transparencia) para que se note bien en pantallas
-              antiguas: cada mitad usa directamente el color de estado, a
-              máxima saturación, para que el TV lo reproduzca con fuerza. */}
+          {/* Fondo suave: cada mitad conserva su tono (verde/naranja) pero
+              translúcido, como los recuadros de T° y H%. */}
           <div
             style={{
               position: "absolute",
@@ -1196,7 +1164,9 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
                 width: `${anchoKwfPct}%`,
                 height: "100%",
                 transition: "width 0.6s ease, background-color 0.4s ease",
-                backgroundColor: colorKwf || "#3b0764",
+                backgroundColor: kwfCritico
+                  ? COLOR_PREOCUPANTE
+                  : "var(--metric-kwf-bg)",
               }}
             />
             <div
@@ -1204,7 +1174,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
                 width: `${anchoCargaTiPct}%`,
                 height: "100%",
                 transition: "width 0.6s ease",
-                backgroundColor: COLOR_CARGA_TI,
+                backgroundColor: "var(--metric-ti-bg)",
               }}
             />
           </div>
@@ -1223,6 +1193,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
 
           <button
             onClick={() => onClickMetrica(datos, "kwf")}
+            className="metric-btn"
             style={{
               position: "relative",
               zIndex: 1,
@@ -1240,12 +1211,14 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
             }}
           >
             <span
-              style={{
-                fontSize: "9px",
-                fontWeight: "900",
-                letterSpacing: "0.5px",
-                color: textoKwf,
-                textShadow: colorKwf ? getTextShadow(colorKwf) : "none",
+                style={{
+                  fontSize: "9px",
+                  fontWeight: "900",
+                  letterSpacing: "0.5px",
+                  color: kwfCritico
+                    ? "#ffffff"
+                    : "var(--metric-label)",
+                textShadow: kwfCritico ? "0 1px 2px rgba(0,0,0,0.7)" : "none",
                 textTransform: "uppercase",
                 whiteSpace: "nowrap",
               }}
@@ -1257,8 +1230,10 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
                 fontSize: "14px",
                 fontWeight: "900",
                 fontVariantNumeric: "tabular-nums",
-                color: textoKwf,
-                textShadow: colorKwf ? getTextShadow(colorKwf) : "none",
+                color: kwfCritico
+                  ? "#ffffff"
+                  : "var(--metric-kwf-text)",
+                textShadow: kwfCritico ? "0 1px 3px rgba(0,0,0,0.7)" : "none",
                 whiteSpace: "nowrap",
               }}
             >
@@ -1270,8 +1245,10 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
                   fontSize: "12px",
                   fontWeight: "800",
                   fontVariantNumeric: "tabular-nums",
-                  color: textoKwf,
-                  textShadow: colorKwf ? getTextShadow(colorKwf) : "none",
+                  color: kwfCritico
+                    ? "#ffffff"
+                    : "var(--metric-kwf-text)",
+                  textShadow: kwfCritico ? "0 1px 3px rgba(0,0,0,0.7)" : "none",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -1282,6 +1259,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
 
           <button
             onClick={() => onClickMetrica(datos, "cargati")}
+            className="metric-btn"
             style={{
               position: "relative",
               zIndex: 1,
@@ -1303,8 +1281,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
                 fontSize: "9px",
                 fontWeight: "900",
                 letterSpacing: "0.5px",
-                color: TEXTO_CARGA_TI,
-                textShadow: getTextShadow(COLOR_CARGA_TI),
+                color: "var(--metric-label)",
                 textTransform: "uppercase",
                 whiteSpace: "nowrap",
               }}
@@ -1316,8 +1293,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
                 fontSize: "14px",
                 fontWeight: "900",
                 fontVariantNumeric: "tabular-nums",
-                color: TEXTO_CARGA_TI,
-                textShadow: getTextShadow(COLOR_CARGA_TI),
+                color: "var(--metric-ti-text)",
                 whiteSpace: "nowrap",
               }}
             >
@@ -1329,8 +1305,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
                   fontSize: "12px",
                   fontWeight: "800",
                   fontVariantNumeric: "tabular-nums",
-                  color: TEXTO_CARGA_TI,
-                  textShadow: getTextShadow(COLOR_CARGA_TI),
+                  color: "var(--metric-ti-text)",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -1445,7 +1420,7 @@ const TarjetaChiller = ({ datos }) => {
               fontSize: "9px",
               fontWeight: "800",
               letterSpacing: "0.5px",
-              color: "var(--text-muted)",
+              color: "var(--metric-label)",
               textTransform: "uppercase",
             }}
           >
@@ -1482,7 +1457,7 @@ const TarjetaChiller = ({ datos }) => {
               fontSize: "9px",
               fontWeight: "800",
               letterSpacing: "0.5px",
-              color: "var(--text-muted)",
+              color: "var(--metric-label)",
               textTransform: "uppercase",
             }}
           >
@@ -1515,21 +1490,8 @@ const TarjetaEnergia = ({ datos, onClickMetrica }) => {
   // NUEVO: la alarma/emergencia de la UPS (datos.alarmaUps) también activa el
   // estado crítico. Así el cuadro KW y el % Carga se pintan/parpadean a rojo.
   const enAlerta = cargaCritica || datos.alarmaUps === true;
-  const colorCarga =
-    hayDatoCarga || enAlerta
-      ? enAlerta
-        ? COLOR_PREOCUPANTE
-        : COLOR_ENERGIA_OK
-      : null;
-  // Color plano (sin transparencia) y su texto de contraste correspondiente
-  const textoCarga = colorCarga ? getContrastText(colorCarga) : "var(--metric-chiller-surt-text)";
 
   const claseUps = enAlerta ? "efecto-baliza" : "";
-
-  // NUEVO: color del cuadro KW. Normal: dorado. Con alarma/emergencia: rojo
-  // de emergencia (mismo del % Carga), con su texto de contraste automático.
-  const colorKw = enAlerta ? COLOR_PREOCUPANTE : COLOR_UPS_KW;
-  const textoKw = getContrastText(colorKw);
 
   return (
     <div
@@ -1576,7 +1538,7 @@ const TarjetaEnergia = ({ datos, onClickMetrica }) => {
         <span
           style={{
             fontSize: "12px",
-            color: "var(--badge-text)",
+            color: "var(--text-primary)",
             backgroundColor: "var(--badge-bg)",
             padding: "2px 6px",
             borderRadius: "4px",
@@ -1585,7 +1547,7 @@ const TarjetaEnergia = ({ datos, onClickMetrica }) => {
           }}
         >
           KVA:{" "}
-          <strong style={{ color: "var(--header-energia)" }}>{fmt(datos.kvaInicio)}</strong>
+          <strong style={{ color: "var(--text-primary)" }}>{fmt(datos.kvaInicio)}</strong>
         </span>
       </div>
 
@@ -1600,62 +1562,18 @@ const TarjetaEnergia = ({ datos, onClickMetrica }) => {
       >
         <button
           onClick={() => onClickMetrica(datos, "energia")}
-          className={claseUps}
+          className={`${claseUps} metric-btn`}
           style={{
             width: "calc(50% - 3px)",
             marginRight: "6px",
-            backgroundColor: colorKw,
-            border: `1px solid ${colorKw}`,
-            boxShadow: `0 0 12px 1px ${hexA(colorKw, enAlerta ? 0.8 : 0.45)}`,
-            borderRadius: "8px",
-            padding: "4px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            cursor: "pointer",
-            minHeight: 0,
-            boxSizing: "border-box",
-          }}
-        >
-          <span
-            style={{
-              fontSize: "9px",
-              fontWeight: "900",
-              letterSpacing: "0.5px",
-              color: textoKw,
-              textShadow: getTextShadow(colorKw),
-              textTransform: "uppercase",
-            }}
-          >
-            KW
-          </span>
-          <span
-            style={{
-              fontSize: "16px",
-              fontWeight: "900",
-              fontVariantNumeric: "tabular-nums",
-              color: textoKw,
-              textShadow: getTextShadow(colorKw),
-            }}
-          >
-            {fmt(datos.kvaTermino)}
-          </span>
-        </button>
-
-        {/* % CARGA UPS - fondo plano (sin transparencia) con el color de
-            estado a máxima saturación; el parpadeo a rojo lo hace la clase
-            .efecto-baliza, reforzado con un halo (box-shadow) del mismo
-            color para que se note más en TVs viejas. */}
-        <button
-          onClick={() => onClickMetrica(datos, "energia")}
-          className={claseUps}
-          style={{
-            width: "calc(50% - 3px)",
-            backgroundColor: colorCarga || "var(--badge-bg)",
-            border: `1px solid ${colorCarga || "var(--badge-border)"}`,
-            boxShadow: colorCarga
-              ? `0 0 12px 1px ${hexA(colorCarga, enAlerta ? 0.8 : 0.45)}`
+            backgroundColor: enAlerta
+              ? COLOR_PREOCUPANTE
+              : "var(--metric-temp-bg)",
+            border: `1px solid ${
+              enAlerta ? COLOR_PREOCUPANTE : "var(--metric-temp-border)"
+            }`,
+            boxShadow: enAlerta
+              ? `0 0 12px 1px ${hexA(COLOR_PREOCUPANTE, 0.8)}`
               : "none",
             borderRadius: "8px",
             padding: "4px",
@@ -1673,8 +1591,60 @@ const TarjetaEnergia = ({ datos, onClickMetrica }) => {
               fontSize: "9px",
               fontWeight: "900",
               letterSpacing: "0.5px",
-              color: textoCarga,
-              textShadow: colorCarga ? getTextShadow(colorCarga) : "none",
+              color: enAlerta ? "#ffffff" : "var(--metric-label)",
+              textShadow: enAlerta ? "0 1px 2px rgba(0,0,0,0.6)" : "none",
+              textTransform: "uppercase",
+            }}
+          >
+            KW
+          </span>
+          <span
+            style={{
+              fontSize: "16px",
+              fontWeight: "900",
+              fontVariantNumeric: "tabular-nums",
+              color: enAlerta ? "#ffffff" : "var(--metric-temp-text)",
+              textShadow: enAlerta ? "0 1px 3px rgba(0,0,0,0.7)" : "none",
+            }}
+          >
+            {fmt(datos.kvaTermino)}
+          </span>
+        </button>
+
+        {/* % CARGA UPS - fondo/borde suaves como H%; el parpadeo a rojo lo hace
+            la clase .efecto-baliza solo cuando hay alarma/emergencia. */}
+        <button
+          onClick={() => onClickMetrica(datos, "energia")}
+          className={`${claseUps} metric-btn`}
+          style={{
+            width: "calc(50% - 3px)",
+            backgroundColor: enAlerta
+              ? COLOR_PREOCUPANTE
+              : "var(--metric-hum-bg)",
+            border: `1px solid ${
+              enAlerta ? COLOR_PREOCUPANTE : "var(--metric-hum-border)"
+            }`,
+            boxShadow: enAlerta
+              ? `0 0 12px 1px ${hexA(COLOR_PREOCUPANTE, 0.8)}`
+              : "none",
+            borderRadius: "8px",
+            padding: "4px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            cursor: "pointer",
+            minHeight: 0,
+            boxSizing: "border-box",
+          }}
+        >
+          <span
+            style={{
+              fontSize: "9px",
+              fontWeight: "900",
+              letterSpacing: "0.5px",
+              color: enAlerta ? "#ffffff" : "var(--metric-label)",
+              textShadow: enAlerta ? "0 1px 2px rgba(0,0,0,0.6)" : "none",
               textTransform: "uppercase",
             }}
           >
@@ -1685,8 +1655,8 @@ const TarjetaEnergia = ({ datos, onClickMetrica }) => {
               fontSize: "16px",
               fontWeight: "900",
               fontVariantNumeric: "tabular-nums",
-              color: textoCarga,
-              textShadow: colorCarga ? getTextShadow(colorCarga) : "none",
+              color: enAlerta ? "#ffffff" : "var(--metric-hum-text)",
+              textShadow: enAlerta ? "0 1px 3px rgba(0,0,0,0.7)" : "none",
             }}
           >
             {fmtPorcentaje(pctCarga)}
@@ -2075,6 +2045,7 @@ const IcetelProgramaVista = () => {
           <button
             onClick={alternarTema}
             title={tema === "light" ? "Cambiar a Modo Oscuro" : "Cambiar a Modo Claro"}
+            className="btn-tema"
             style={{
               display: "flex",
               alignItems: "center",
@@ -2097,6 +2068,7 @@ const IcetelProgramaVista = () => {
           </button>
           <button
             onClick={abrirNovedades}
+            className="btn-novedades"
             style={{
               backgroundColor: "#06b6d4",
               color: "#020617",
@@ -2113,6 +2085,7 @@ const IcetelProgramaVista = () => {
           </button>
           <button
             onClick={() => window.location.reload()}
+            className="btn-estado"
             style={{
               backgroundColor: "var(--bg-card)",
               padding: "6px 10px",
