@@ -449,6 +449,8 @@ function leerEnergia() {
     kva: buscarColumna(headers, ["kva inicio", "kva"]),
     kvaTermino: buscarColumna(headers, ["kva termino", "kva término"]),
     cargaPct: buscarColumna(headers, ["porcentaje carga"]),
+    estado: buscarColumna(headers, ["estado"]),
+    alarmas: buscarColumna(headers, ["alarmas", "alarma"]),
     fechaTermino: buscarColumna(headers, ["fecha termino", "fecha término"]),
   };
 
@@ -489,12 +491,42 @@ function leerEnergia() {
       porcentajeCarga = Number(((kvaTermino / kvaInicio) * 100).toFixed(1));
     }
 
+    // NUEVO: alarma de emergencia de la UPS. Se activa si la columna Alarmas
+    // trae un valor > 0 o si el Estado no es un modo normal (OK / Normal /
+    // Bypass / Sin Alarma) y sugiere emergencia (ALARM, EMERGENC, CRITIC,
+    // FALLA, FALLO). El frontend usa esto para pintar también el cuadro KW.
+    const estado =
+      idx.estado !== -1 ? String(fila[idx.estado] || "").trim() : null;
+    const alarmas = idx.alarmas !== -1 ? numeroONull(fila[idx.alarmas]) : null;
+    let alarmaUps = alarmas !== null && alarmas > 0;
+    if (estado) {
+      const est = estado.toUpperCase();
+      const esModoNormal =
+        est === "OK" ||
+        est === "NORMAL" ||
+        est === "BYPASS" ||
+        est.indexOf("SIN ALARMA") !== -1;
+      if (
+        !esModoNormal &&
+        (est.indexOf("ALARM") !== -1 ||
+          est.indexOf("EMERGENC") !== -1 ||
+          est.indexOf("CRITIC") !== -1 ||
+          est.indexOf("FALLA") !== -1 ||
+          est.indexOf("FALLO") !== -1)
+      ) {
+        alarmaUps = true;
+      }
+    }
+
     return {
       id: i + 1,
       equipo: nombreEquipo,
       kvaInicio: kvaInicio,
       kvaTermino: kvaTermino,
       porcentajeCarga: porcentajeCarga,
+      estado: estado,
+      alarmas: alarmas,
+      alarmaUps: alarmaUps,
     };
   });
 }
