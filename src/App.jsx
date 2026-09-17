@@ -1905,20 +1905,29 @@ const IcetelProgramaVista = () => {
 
   useEffect(() => {
     const manejarTeclado = (ev) => {
-      if (totalPaginas <= 1) return;
-      if (ev.key === "ArrowRight" || ev.key === "ArrowDown") {
+      if (ev.key === "ArrowRight") {
         ev.preventDefault();
+        if (totalPaginas <= 1) return;
         setPaginaActual((p) => (p + 1) % totalPaginas);
         reiniciarRotacion();
-      } else if (ev.key === "ArrowLeft" || ev.key === "ArrowUp") {
+      } else if (ev.key === "ArrowLeft") {
         ev.preventDefault();
+        if (totalPaginas <= 1) return;
         setPaginaActual((p) => (p - 1 + totalPaginas) % totalPaginas);
         reiniciarRotacion();
+      } else if (ev.key === "ArrowUp") {
+        ev.preventDefault();
+        alternarTema();
+      } else if (ev.key === "ArrowDown") {
+        ev.preventDefault();
+        setModalActivo((m) =>
+          m?.tipo === "novedades" ? null : { tipo: "novedades" },
+        );
       }
     };
     window.addEventListener("keydown", manejarTeclado);
     return () => window.removeEventListener("keydown", manejarTeclado);
-  }, [totalPaginas, reiniciarRotacion]);
+  }, [totalPaginas, reiniciarRotacion, alternarTema]);
 
   // NUEVO: cambio de panel al deslizar (swipe) con el dedo, pensado para
   // celulares en portrait donde no hay teclado físico. Escucha touchstart
