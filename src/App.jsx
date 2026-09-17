@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import logoIcetel from "./assets/logo-icetel.png";
 
 // --- CONFIGURACIÓN ---
 const GAS_URL =
@@ -1773,7 +1774,7 @@ const IcetelProgramaVista = () => {
   const touchInicioX = useRef(null);
   const touchInicioY = useRef(null);
   const { columnas, esPantallaGrande } = useResponsiveLayout();
-  const margenInferior = esPantallaGrande ? 18 : 14;
+  const margenInferior = esPantallaGrande ? 46 : 44;
   const [climaRef, alturaDisponibleClima] = useAlturaDisponible(margenInferior);
   const [energiaRef, alturaDisponibleEnergia] =
     useAlturaDisponible(margenInferior);
@@ -2060,21 +2061,15 @@ const IcetelProgramaVista = () => {
         }}
       >
         <div style={{ marginBottom: esPantallaGrande ? 0 : "8px" }}>
-          <h1
+          <img
+            src={logoIcetel}
+            alt="Icetel Visualización"
             style={{
-              fontSize: esPantallaGrande ? "18px" : "16px",
-              fontWeight: "bold",
-              color: "var(--text-primary)",
-              margin: 0,
+              height: esPantallaGrande ? "68px" : "56px",
+              width: "auto",
+              objectFit: "contain",
             }}
-          >
-            Icetel Visualización
-          </h1>
-          <p style={{ fontSize: "11px", color: "var(--text-muted)", margin: 0 }}>
-            {cargando
-              ? "Cargando..."
-              : `Panel ${paginaActual + 1} de ${totalPaginas} (Rotación 10s)`}
-          </p>
+          />
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
           <button
@@ -2319,6 +2314,25 @@ const IcetelProgramaVista = () => {
             })}
           </div>
         </div>
+      </div>
+
+      {/* FOOTER */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "10px",
+          paddingTop: "8px",
+          borderTop: "1px solid var(--border-subtle)",
+          flexShrink: 0,
+        }}
+      >
+        <p style={{ fontSize: "11px", color: "var(--text-muted)", margin: 0 }}>
+          {cargando
+            ? "Cargando..."
+            : `Panel ${paginaActual + 1} de ${totalPaginas} (Rotación 10s)`}
+        </p>
       </div>
 
       {modalActivo?.tipo === "detalle" && (
