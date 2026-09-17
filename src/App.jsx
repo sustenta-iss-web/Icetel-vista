@@ -164,7 +164,7 @@ const ModalDetalle = ({ config, onClose }) => {
         {!sala.equipos || sala.equipos.length === 0 ? (
           <p
             style={{
-              color: "#64748b",
+              color: "var(--text-muted)",
               fontSize: "14px",
               textAlign: "center",
               padding: "16px",
@@ -177,21 +177,21 @@ const ModalDetalle = ({ config, onClose }) => {
             <div
               key={i}
               style={{
-                backgroundColor: "rgba(15, 23, 42, 0.6)",
+                backgroundColor: "var(--bg-card-subtle)",
                 borderRadius: "10px",
                 padding: "10px 14px",
-                border: "1px solid #1e293b",
+                border: "1px solid var(--border-subtle)",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
               }}
             >
-              <span style={{ fontWeight: "bold", color: "#e2e8f0" }}>
+              <span style={{ fontWeight: "bold", color: "var(--text-primary)" }}>
                 {eq.nombre || "Equipo"}
               </span>
               <span
                 style={{
-                  color: "#38bdf8",
+                  color: "var(--metric-temp-text)",
                   fontWeight: "bold",
                   fontSize: "14px",
                 }}
@@ -210,7 +210,7 @@ const ModalDetalle = ({ config, onClose }) => {
         {!sala.equipos || sala.equipos.length === 0 ? (
           <p
             style={{
-              color: "#64748b",
+              color: "var(--text-muted)",
               fontSize: "14px",
               textAlign: "center",
               padding: "16px",
@@ -223,21 +223,21 @@ const ModalDetalle = ({ config, onClose }) => {
             <div
               key={i}
               style={{
-                backgroundColor: "rgba(15, 23, 42, 0.6)",
+                backgroundColor: "var(--bg-card-subtle)",
                 borderRadius: "10px",
                 padding: "10px 14px",
-                border: "1px solid #1e293b",
+                border: "1px solid var(--border-subtle)",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
               }}
             >
-              <span style={{ fontWeight: "bold", color: "#e2e8f0" }}>
+              <span style={{ fontWeight: "bold", color: "var(--text-primary)" }}>
                 {eq.nombre || "Equipo"}
               </span>
               <span
                 style={{
-                  color: "#22d3ee",
+                  color: "var(--metric-hum-text)",
                   fontWeight: "bold",
                   fontSize: "14px",
                 }}
@@ -256,7 +256,7 @@ const ModalDetalle = ({ config, onClose }) => {
         {!sala.detalleKwf || sala.detalleKwf.length === 0 ? (
           <p
             style={{
-              color: "#64748b",
+              color: "var(--text-muted)",
               fontSize: "14px",
               textAlign: "center",
               padding: "16px",
@@ -269,10 +269,10 @@ const ModalDetalle = ({ config, onClose }) => {
             <div
               key={i}
               style={{
-                backgroundColor: "rgba(15, 23, 42, 0.6)",
+                backgroundColor: "var(--bg-card-subtle)",
                 borderRadius: "10px",
                 padding: "10px",
-                border: "1px solid #1e293b",
+                border: "1px solid var(--border-subtle)",
                 display: "flex",
                 flexDirection: "column",
                 gap: "8px",
@@ -283,11 +283,11 @@ const ModalDetalle = ({ config, onClose }) => {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  borderBottom: "1px solid rgba(30, 41, 59, 0.8)",
+                  borderBottom: "1px solid var(--border-subtle)",
                   paddingBottom: "6px",
                 }}
               >
-                <span style={{ fontWeight: "bold", color: "#e2e8f0" }}>
+                <span style={{ fontWeight: "bold", color: "var(--text-primary)" }}>
                   {sala.nombre} - {eq.equipo}
                 </span>
                 <span
@@ -308,7 +308,7 @@ const ModalDetalle = ({ config, onClose }) => {
                       eq.val === null
                         ? "#fbbf24"
                         : eq.val === 1
-                          ? "#34d399"
+                          ? "#10b981"
                           : eq.val === 0.5
                             ? "#fbbf24"
                             : "#f87171",
@@ -321,15 +321,15 @@ const ModalDetalle = ({ config, onClose }) => {
                 <div
                   style={{
                     flex: 1,
-                    backgroundColor: "#020617",
+                    backgroundColor: "var(--badge-bg)",
                     padding: "8px",
                     borderRadius: "6px",
-                    border: "1px solid #1e293b",
+                    border: "1px solid var(--badge-border)",
                     display: "flex",
                     justifyContent: "space-between",
                   }}
                 >
-                  <span style={{ fontSize: "11px", color: "#64748b" }}>
+                  <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>
                     Circuito 1
                   </span>
                   <span
@@ -338,12 +338,12 @@ const ModalDetalle = ({ config, onClose }) => {
                       fontWeight: "bold",
                       color:
                         eq.c1 === "OK"
-                          ? "#34d399"
+                          ? "#10b981"
                           : eq.c1 === "NOK"
-                            ? "#f87171"
+                            ? "#ef4444"
                             : eq.c1 === "STAND BY"
-                              ? "#fbbf24"
-                              : "#94a3b8",
+                              ? "#f59e0b"
+                              : "var(--text-muted)",
                     }}
                   >
                     {eq.c1}
@@ -352,15 +352,15 @@ const ModalDetalle = ({ config, onClose }) => {
                 <div
                   style={{
                     flex: 1,
-                    backgroundColor: "#020617",
+                    backgroundColor: "var(--badge-bg)",
                     padding: "8px",
                     borderRadius: "6px",
-                    border: "1px solid #1e293b",
+                    border: "1px solid var(--badge-border)",
                     display: "flex",
                     justifyContent: "space-between",
                   }}
                 >
-                  <span style={{ fontSize: "11px", color: "#64748b" }}>
+                  <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>
                     Circuito 2
                   </span>
                   <span
@@ -369,12 +369,12 @@ const ModalDetalle = ({ config, onClose }) => {
                       fontWeight: "bold",
                       color:
                         eq.c2 === "OK"
-                          ? "#34d399"
+                          ? "#10b981"
                           : eq.c2 === "NOK"
-                            ? "#f87171"
+                            ? "#ef4444"
                             : eq.c2 === "STAND BY"
-                              ? "#fbbf24"
-                              : "#94a3b8",
+                              ? "#f59e0b"
+                              : "var(--text-muted)",
                     }}
                   >
                     {eq.c2}
@@ -391,10 +391,10 @@ const ModalDetalle = ({ config, onClose }) => {
     contenido = (
       <div
         style={{
-          backgroundColor: "rgba(15, 23, 42, 0.6)",
+          backgroundColor: "var(--bg-card-subtle)",
           borderRadius: "10px",
           padding: "16px",
-          border: "1px solid #1e293b",
+          border: "1px solid var(--border-subtle)",
           display: "flex",
           flexDirection: "column",
           gap: "12px",
@@ -404,12 +404,12 @@ const ModalDetalle = ({ config, onClose }) => {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            borderBottom: "1px solid #1e293b",
+            borderBottom: "1px solid var(--border-subtle)",
             paddingBottom: "8px",
           }}
         >
-          <span style={{ color: "#94a3b8" }}>Capacidad Total TI (Máx TI)</span>
-          <span style={{ color: "#e2e8f0", fontWeight: "bold" }}>
+          <span style={{ color: "var(--text-muted)" }}>Capacidad Total TI (Máx TI)</span>
+          <span style={{ color: "var(--text-primary)", fontWeight: "bold" }}>
             {fmt(sala.maxTi, " kW")}
           </span>
         </div>
@@ -417,12 +417,12 @@ const ModalDetalle = ({ config, onClose }) => {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            borderBottom: "1px solid #1e293b",
+            borderBottom: "1px solid var(--border-subtle)",
             paddingBottom: "8px",
           }}
         >
-          <span style={{ color: "#94a3b8" }}>Carga TI Actual</span>
-          <span style={{ color: "#fb923c", fontWeight: "bold" }}>
+          <span style={{ color: "var(--text-muted)" }}>Carga TI Actual</span>
+          <span style={{ color: "#f97316", fontWeight: "bold" }}>
             {fmt(sala.cargaTiKw, " kW")}
           </span>
         </div>
@@ -433,15 +433,15 @@ const ModalDetalle = ({ config, onClose }) => {
             alignItems: "center",
           }}
         >
-          <span style={{ color: "#94a3b8" }}>Porcentaje de Carga</span>
+          <span style={{ color: "var(--text-muted)" }}>Porcentaje de Carga</span>
           <span
             style={{
-              color: "#fbbf24",
+              color: "#d97706",
               fontWeight: "bold",
-              backgroundColor: "rgba(124, 45, 18, 0.3)",
+              backgroundColor: "rgba(245, 158, 11, 0.15)",
               padding: "4px 10px",
               borderRadius: "6px",
-              border: "1px solid rgba(194, 65, 12, 0.5)",
+              border: "1px solid rgba(245, 158, 11, 0.3)",
             }}
           >
             {fmtPorcentaje(sala.cargaTi)}
@@ -454,10 +454,10 @@ const ModalDetalle = ({ config, onClose }) => {
     contenido = (
       <div
         style={{
-          backgroundColor: "rgba(15, 23, 42, 0.6)",
+          backgroundColor: "var(--bg-card-subtle)",
           borderRadius: "10px",
           padding: "16px",
-          border: "1px solid #1e293b",
+          border: "1px solid var(--border-subtle)",
           display: "flex",
           flexDirection: "column",
           gap: "12px",
@@ -467,12 +467,12 @@ const ModalDetalle = ({ config, onClose }) => {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            borderBottom: "1px solid #1e293b",
+            borderBottom: "1px solid var(--border-subtle)",
             paddingBottom: "8px",
           }}
         >
-          <span style={{ color: "#94a3b8" }}>KVA Inicio</span>
-          <span style={{ color: "#fbbf24", fontWeight: "bold" }}>
+          <span style={{ color: "var(--text-muted)" }}>KVA Inicio</span>
+          <span style={{ color: "var(--header-energia)", fontWeight: "bold" }}>
             {fmt(sala.kvaInicio)}
           </span>
         </div>
@@ -480,12 +480,12 @@ const ModalDetalle = ({ config, onClose }) => {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            borderBottom: "1px solid #1e293b",
+            borderBottom: "1px solid var(--border-subtle)",
             paddingBottom: "8px",
           }}
         >
-          <span style={{ color: "#94a3b8" }}>KW Término</span>
-          <span style={{ color: "#818cf8", fontWeight: "bold" }}>
+          <span style={{ color: "var(--text-muted)" }}>KW Término</span>
+          <span style={{ color: "#6366f1", fontWeight: "bold" }}>
             {fmt(sala.kvaTermino)}
           </span>
         </div>
@@ -496,15 +496,15 @@ const ModalDetalle = ({ config, onClose }) => {
             alignItems: "center",
           }}
         >
-          <span style={{ color: "#94a3b8" }}>Porcentaje Carga</span>
+          <span style={{ color: "var(--text-muted)" }}>Porcentaje Carga</span>
           <span
             style={{
-              color: "#34d399",
+              color: "#10b981",
               fontWeight: "bold",
-              backgroundColor: "rgba(6, 78, 59, 0.3)",
+              backgroundColor: "rgba(16, 185, 129, 0.15)",
               padding: "4px 10px",
               borderRadius: "6px",
-              border: "1px solid rgba(4, 120, 87, 0.5)",
+              border: "1px solid rgba(16, 185, 129, 0.3)",
             }}
           >
             {fmtPorcentaje(sala.porcentajeCarga)}
@@ -522,7 +522,8 @@ const ModalDetalle = ({ config, onClose }) => {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: "rgba(0,0,0,0.8)",
+        backgroundColor: "var(--bg-modal-overlay)",
+        backdropFilter: "blur(4px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -533,8 +534,9 @@ const ModalDetalle = ({ config, onClose }) => {
     >
       <div
         style={{
-          backgroundColor: "#0f172a",
-          border: "1px solid #334155",
+          backgroundColor: "var(--bg-modal)",
+          border: "1px solid var(--border-card)",
+          boxShadow: "var(--shadow-card)",
           borderRadius: "14px",
           width: "100%",
           maxWidth: "420px",
@@ -550,14 +552,14 @@ const ModalDetalle = ({ config, onClose }) => {
             justifyContent: "space-between",
             alignItems: "center",
             padding: "16px",
-            borderBottom: "1px solid #1e293b",
+            borderBottom: "1px solid var(--border-subtle)",
           }}
         >
           <h3
             style={{
               fontSize: "16px",
               fontWeight: "bold",
-              color: "#f8fafc",
+              color: "var(--text-primary)",
               margin: 0,
             }}
           >
@@ -568,7 +570,7 @@ const ModalDetalle = ({ config, onClose }) => {
             style={{
               background: "none",
               border: "none",
-              color: "#64748b",
+              color: "var(--text-muted)",
               fontSize: "20px",
               fontWeight: "bold",
               cursor: "pointer",
@@ -608,7 +610,8 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: "rgba(0,0,0,0.8)",
+        backgroundColor: "var(--bg-modal-overlay)",
+        backdropFilter: "blur(4px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -619,15 +622,16 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
     >
       <div
         style={{
-          backgroundColor: "#0f172a",
-          border: "1px solid #334155",
+          backgroundColor: "var(--bg-modal)",
+          border: "1px solid var(--border-card)",
+          boxShadow: "var(--shadow-card)",
           borderRadius: "14px",
           width: "100%",
           maxWidth: "800px",
           maxHeight: "85vh",
           display: "flex",
           flexDirection: "column",
-          color: "#e2e8f0",
+          color: "var(--text-primary)",
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -637,7 +641,7 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
             justifyContent: "space-between",
             alignItems: "center",
             padding: "16px",
-            borderBottom: "1px solid #1e293b",
+            borderBottom: "1px solid var(--border-subtle)",
           }}
         >
           <div>
@@ -645,22 +649,22 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
               style={{
                 fontSize: "16px",
                 fontWeight: "bold",
-                color: "#22d3ee",
+                color: "var(--metric-hum-text)",
                 margin: 0,
               }}
             >
               Novedades y Observaciones de Operación
             </h3>
-            <p style={{ fontSize: "12px", color: "#94a3b8", margin: 0 }}>
+            <p style={{ fontSize: "12px", color: "var(--text-muted)", margin: 0 }}>
               Registro reciente clasificado por área
             </p>
           </div>
           <button
             onClick={onClose}
             style={{
-              background: "#020617",
-              border: "1px solid #1e293b",
-              color: "#64748b",
+              background: "var(--badge-bg)",
+              border: "1px solid var(--border-subtle)",
+              color: "var(--text-muted)",
               fontSize: "18px",
               fontWeight: "bold",
               cursor: "pointer",
@@ -684,19 +688,19 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
           <div
             style={{
               flex: 1,
-              backgroundColor: "rgba(15, 23, 42, 0.4)",
+              backgroundColor: "var(--bg-card-subtle)",
               padding: "12px",
               borderRadius: "10px",
-              border: "1px solid #1e293b",
+              border: "1px solid var(--border-subtle)",
             }}
           >
             <h4
               style={{
                 fontSize: "13px",
                 fontWeight: "bold",
-                color: "#60a5fa",
+                color: "var(--header-clima)",
                 marginBottom: "8px",
-                borderBottom: "1px solid rgba(59, 130, 246, 0.3)",
+                borderBottom: "1px solid var(--header-clima-border)",
                 paddingBottom: "6px",
                 margin: "0 0 8px 0",
               }}
@@ -715,7 +719,7 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
               {novClima.length === 0 ? (
                 <p
                   style={{
-                    color: "#64748b",
+                    color: "var(--text-muted)",
                     fontSize: "11px",
                     textAlign: "center",
                   }}
@@ -727,10 +731,10 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
                   <div
                     key={i}
                     style={{
-                      backgroundColor: "#020617",
+                      backgroundColor: "var(--badge-bg)",
                       padding: "8px",
                       borderRadius: "6px",
-                      border: "1px solid #1e293b",
+                      border: "1px solid var(--badge-border)",
                     }}
                   >
                     <div
@@ -738,18 +742,18 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
                         display: "flex",
                         justifyContent: "space-between",
                         fontSize: "10px",
-                        color: "#94a3b8",
+                        color: "var(--text-muted)",
                       }}
                     >
                       <span>
-                        Sala: <strong>{n.sala || "—"}</strong>
+                        Sala: <strong style={{ color: "var(--text-primary)" }}>{n.sala || "—"}</strong>
                       </span>
-                      <span style={{ color: "#22d3ee" }}>{n.fecha}</span>
+                      <span style={{ color: "var(--metric-hum-text)", fontWeight: "600" }}>{n.fecha}</span>
                     </div>
                     <p
                       style={{
                         fontSize: "12px",
-                        color: "#cbd5e1",
+                        color: "var(--text-secondary)",
                         margin: "4px 0 0 0",
                       }}
                     >
@@ -763,19 +767,19 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
           <div
             style={{
               flex: 1,
-              backgroundColor: "rgba(15, 23, 42, 0.4)",
+              backgroundColor: "var(--bg-card-subtle)",
               padding: "12px",
               borderRadius: "10px",
-              border: "1px solid #1e293b",
+              border: "1px solid var(--border-subtle)",
             }}
           >
             <h4
               style={{
                 fontSize: "13px",
                 fontWeight: "bold",
-                color: "#fbbf24",
+                color: "var(--header-energia)",
                 marginBottom: "8px",
-                borderBottom: "1px solid rgba(245, 158, 11, 0.3)",
+                borderBottom: "1px solid var(--header-energia-border)",
                 paddingBottom: "6px",
                 margin: "0 0 8px 0",
               }}
@@ -794,7 +798,7 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
               {novEnergia.length === 0 ? (
                 <p
                   style={{
-                    color: "#64748b",
+                    color: "var(--text-muted)",
                     fontSize: "11px",
                     textAlign: "center",
                   }}
@@ -806,10 +810,10 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
                   <div
                     key={i}
                     style={{
-                      backgroundColor: "#020617",
+                      backgroundColor: "var(--badge-bg)",
                       padding: "8px",
                       borderRadius: "6px",
-                      border: "1px solid #1e293b",
+                      border: "1px solid var(--badge-border)",
                     }}
                   >
                     <div
@@ -817,18 +821,18 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
                         display: "flex",
                         justifyContent: "space-between",
                         fontSize: "10px",
-                        color: "#94a3b8",
+                        color: "var(--text-muted)",
                       }}
                     >
                       <span>
-                        Sala: <strong>{n.sala || "—"}</strong>
+                        Sala: <strong style={{ color: "var(--text-primary)" }}>{n.sala || "—"}</strong>
                       </span>
-                      <span style={{ color: "#22d3ee" }}>{n.fecha}</span>
+                      <span style={{ color: "var(--metric-hum-text)", fontWeight: "600" }}>{n.fecha}</span>
                     </div>
                     <p
                       style={{
                         fontSize: "12px",
-                        color: "#cbd5e1",
+                        color: "var(--text-secondary)",
                         margin: "4px 0 0 0",
                       }}
                     >
@@ -845,7 +849,7 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
             <p
               style={{
                 fontSize: "11px",
-                color: "#64748b",
+                color: "var(--text-muted)",
                 textTransform: "uppercase",
                 marginBottom: "8px",
               }}
@@ -865,20 +869,21 @@ const ModalNovedades = ({ novedades, onClose, columnaUnica }) => {
                 <div
                   key={i}
                   style={{
-                    backgroundColor: "#020617",
-                    border: "1px solid #1e293b",
+                    backgroundColor: "var(--badge-bg)",
+                    border: "1px solid var(--badge-border)",
                     padding: "6px",
                     borderRadius: "4px",
                     fontSize: "11px",
                     display: "flex",
                     justifyContent: "space-between",
+                    color: "var(--text-secondary)",
                   }}
                 >
                   <span>
-                    <strong>{n.area || "General"}</strong> - {n.sala}:{" "}
+                    <strong style={{ color: "var(--text-primary)" }}>{n.area || "General"}</strong> - {n.sala}:{" "}
                     {n.observacion}
                   </span>
-                  <span style={{ color: "#22d3ee" }}>{n.fecha}</span>
+                  <span style={{ color: "var(--metric-hum-text)", fontWeight: "600" }}>{n.fecha}</span>
                 </div>
               ))}
             </div>
@@ -924,11 +929,12 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
   return (
     <div
       style={{
-        backgroundColor: "#0f172a",
+        backgroundColor: "var(--bg-card)",
         borderRadius: "12px",
-        border: "1px solid #334155",
-        borderTop: `2px solid ${kwfCritico ? COLOR_PREOCUPANTE : "#94a3b8"}`,
-        transition: "border-top-color 0.4s ease",
+        boxShadow: "var(--shadow-card)",
+        border: "1px solid var(--border-card)",
+        borderTop: `2px solid ${kwfCritico ? COLOR_PREOCUPANTE : "var(--border-card)"}`,
+        transition: "border-top-color 0.4s ease, background-color 0.25s ease, border-color 0.25s ease",
         padding: "8px",
         display: "flex",
         flexDirection: "column",
@@ -944,7 +950,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          borderBottom: "1px solid #1e293b",
+          borderBottom: "1px solid var(--border-subtle)",
           paddingBottom: "4px",
           flexShrink: 0,
         }}
@@ -953,7 +959,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
           style={{
             fontSize: "12px",
             fontWeight: "bold",
-            color: "#f8fafc",
+            color: "var(--text-primary)",
             margin: 0,
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -974,30 +980,30 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
           <span
             style={{
               fontSize: "12px",
-              color: "#94a3b8",
-              backgroundColor: "#020617",
+              color: "var(--badge-text)",
+              backgroundColor: "var(--badge-bg)",
               padding: "2px 6px",
               borderRadius: "4px",
-              border: "1px solid #1e293b",
+              border: "1px solid var(--badge-border)",
               whiteSpace: "nowrap",
             }}
           >
             Max KWF:{" "}
-            <strong style={{ color: "#fde047" }}>{fmt(datos.maxKwf)}</strong>
+            <strong style={{ color: "var(--header-energia)" }}>{fmt(datos.maxKwf)}</strong>
           </span>
           <span
             style={{
               fontSize: "12px",
-              color: "#94a3b8",
-              backgroundColor: "#020617",
+              color: "var(--badge-text)",
+              backgroundColor: "var(--badge-bg)",
               padding: "2px 6px",
               borderRadius: "4px",
-              border: "1px solid #1e293b",
+              border: "1px solid var(--badge-border)",
               whiteSpace: "nowrap",
             }}
           >
             Max TI:{" "}
-            <strong style={{ color: "#fde047" }}>{fmt(datos.maxTi)}</strong>
+            <strong style={{ color: "var(--header-energia)" }}>{fmt(datos.maxTi)}</strong>
           </span>
         </div>
       </div>
@@ -1021,8 +1027,8 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
             height: "calc(50% - 3px)",
             marginRight: "6px",
             marginBottom: "6px",
-            backgroundColor: "rgba(30, 58, 138, 0.3)",
-            border: "1px solid rgba(30, 58, 138, 0.6)",
+            backgroundColor: "var(--metric-temp-bg)",
+            border: "1px solid var(--metric-temp-border)",
             borderRadius: "8px",
             padding: "4px",
             display: "flex",
@@ -1038,7 +1044,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
             style={{
               fontSize: "9px",
               fontWeight: "bold",
-              color: tempCritica ? "#fff" : "#64748b",
+              color: tempCritica ? "#fff" : "var(--text-muted)",
               textTransform: "uppercase",
             }}
           >
@@ -1048,7 +1054,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
             style={{
               fontSize: "15px",
               fontWeight: "bold",
-              color: tempCritica ? "#fff" : "#38bdf8",
+              color: tempCritica ? "#fff" : "var(--metric-temp-text)",
             }}
           >
             {fmt(temp, "°C")}
@@ -1061,8 +1067,8 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
             width: "calc(50% - 3px)",
             height: "calc(50% - 3px)",
             marginBottom: "6px",
-            backgroundColor: "rgba(8, 51, 68, 0.3)",
-            border: "1px solid rgba(14, 116, 144, 0.5)",
+            backgroundColor: "var(--metric-hum-bg)",
+            border: "1px solid var(--metric-hum-border)",
             borderRadius: "8px",
             padding: "4px",
             display: "flex",
@@ -1078,14 +1084,14 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
             style={{
               fontSize: "9px",
               fontWeight: "bold",
-              color: "#64748b",
+              color: "var(--text-muted)",
               textTransform: "uppercase",
             }}
           >
             H%
           </span>
           <span
-            style={{ fontSize: "15px", fontWeight: "bold", color: "#22d3ee" }}
+            style={{ fontSize: "15px", fontWeight: "bold", color: "var(--metric-hum-text)" }}
           >
             {fmt(datos.humedad, "%")}
           </span>
@@ -1099,7 +1105,7 @@ const TarjetaClima = ({ datos, onClickMetrica }) => {
             display: "flex",
             borderRadius: "8px",
             overflow: "hidden",
-            border: `1px solid ${kwfCritico ? "#ff4d5e" : "#1e293b"}`,
+            border: `1px solid ${kwfCritico ? "#ff4d5e" : "var(--border-subtle)"}`,
             boxShadow: kwfCritico
               ? `0 0 14px 2px ${hexA(COLOR_PREOCUPANTE, 0.75)}`
               : `0 0 10px 1px ${hexA(colorKwf || COLOR_CARGA_TI, 0.35)}`,
@@ -1270,10 +1276,11 @@ const TarjetaChiller = ({ datos }) => {
   return (
     <div
       style={{
-        backgroundColor: "#0f172a",
+        backgroundColor: "var(--bg-card)",
         borderRadius: "12px",
-        border: "1px solid #334155",
-        borderTop: "2px solid #94a3b8",
+        boxShadow: "var(--shadow-card)",
+        border: "1px solid var(--border-card)",
+        borderTop: "2px solid var(--border-card)",
         padding: "8px",
         display: "flex",
         flexDirection: "column",
@@ -1289,7 +1296,7 @@ const TarjetaChiller = ({ datos }) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          borderBottom: "1px solid #1e293b",
+          borderBottom: "1px solid var(--border-subtle)",
           paddingBottom: "4px",
           flexShrink: 0,
         }}
@@ -1298,7 +1305,7 @@ const TarjetaChiller = ({ datos }) => {
           style={{
             fontSize: "12px",
             fontWeight: "bold",
-            color: "#f8fafc",
+            color: "var(--text-primary)",
             margin: 0,
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -1311,11 +1318,11 @@ const TarjetaChiller = ({ datos }) => {
         <div
           style={{
             fontSize: "9px",
-            color: "#94a3b8",
-            backgroundColor: "#020617",
+            color: "var(--badge-text)",
+            backgroundColor: "var(--badge-bg)",
             padding: "1px 4px",
             borderRadius: "4px",
-            border: "1px solid #1e293b",
+            border: "1px solid var(--badge-border)",
             display: "flex",
             gap: "2px",
           }}
@@ -1323,7 +1330,7 @@ const TarjetaChiller = ({ datos }) => {
           <span>Comp:</span>
           {statusList.length > 0 ? (
             statusList.map((st, idx) => (
-              <span key={idx} style={{ fontWeight: "bold", color: "#cbd5e1" }}>
+              <span key={idx} style={{ fontWeight: "bold", color: "var(--text-secondary)" }}>
                 [{st || "—"}]
               </span>
             ))
@@ -1345,8 +1352,8 @@ const TarjetaChiller = ({ datos }) => {
           style={{
             width: "calc(50% - 3px)",
             marginRight: "6px",
-            backgroundColor: "rgba(19, 78, 74, 0.3)",
-            border: "1px solid rgba(15, 118, 110, 0.5)",
+            backgroundColor: "var(--metric-chiller-surt-bg)",
+            border: "1px solid var(--metric-chiller-surt-border)",
             borderRadius: "8px",
             padding: "4px",
             display: "flex",
@@ -1361,14 +1368,14 @@ const TarjetaChiller = ({ datos }) => {
             style={{
               fontSize: "9px",
               fontWeight: "bold",
-              color: "#64748b",
+              color: "var(--text-muted)",
               textTransform: "uppercase",
             }}
           >
             T° Surtidor
           </span>
           <span
-            style={{ fontSize: "15px", fontWeight: "bold", color: "#2dd4bf" }}
+            style={{ fontSize: "15px", fontWeight: "bold", color: "var(--metric-chiller-surt-text)" }}
           >
             {fmt(datos.tempSurtidor, "°C")}
           </span>
@@ -1376,8 +1383,8 @@ const TarjetaChiller = ({ datos }) => {
         <div
           style={{
             width: "calc(50% - 3px)",
-            backgroundColor: "rgba(12, 74, 110, 0.3)",
-            border: "1px solid rgba(3, 105, 161, 0.5)",
+            backgroundColor: "var(--metric-chiller-ret-bg)",
+            border: "1px solid var(--metric-chiller-ret-border)",
             borderRadius: "8px",
             padding: "4px",
             display: "flex",
@@ -1392,14 +1399,14 @@ const TarjetaChiller = ({ datos }) => {
             style={{
               fontSize: "9px",
               fontWeight: "bold",
-              color: "#64748b",
+              color: "var(--text-muted)",
               textTransform: "uppercase",
             }}
           >
             T° Retorno
           </span>
           <span
-            style={{ fontSize: "15px", fontWeight: "bold", color: "#38bdf8" }}
+            style={{ fontSize: "15px", fontWeight: "bold", color: "var(--metric-chiller-ret-text)" }}
           >
             {fmt(datos.tempRetorno, "°C")}
           </span>
@@ -1423,16 +1430,17 @@ const TarjetaEnergia = ({ datos, onClickMetrica }) => {
       : COLOR_ENERGIA_OK
     : null;
   // Color plano (sin transparencia) y su texto de contraste correspondiente
-  const textoCarga = colorCarga ? getContrastText(colorCarga) : "#34d399";
+  const textoCarga = colorCarga ? getContrastText(colorCarga) : "var(--metric-chiller-surt-text)";
 
   const claseUps = cargaCritica ? "efecto-baliza" : "";
 
   return (
     <div
       style={{
-        backgroundColor: "#0f172a",
+        backgroundColor: "var(--bg-card)",
         borderRadius: "12px",
-        border: "1px solid #334155",
+        boxShadow: "var(--shadow-card)",
+        border: "1px solid var(--border-card)",
         borderTop: "2px solid #f59e0b",
         padding: "8px",
         display: "flex",
@@ -1449,7 +1457,7 @@ const TarjetaEnergia = ({ datos, onClickMetrica }) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          borderBottom: "1px solid #1e293b",
+          borderBottom: "1px solid var(--border-subtle)",
           paddingBottom: "4px",
           flexShrink: 0,
         }}
@@ -1458,7 +1466,7 @@ const TarjetaEnergia = ({ datos, onClickMetrica }) => {
           style={{
             fontSize: "12px",
             fontWeight: "bold",
-            color: "#f8fafc",
+            color: "var(--text-primary)",
             margin: 0,
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -1471,16 +1479,16 @@ const TarjetaEnergia = ({ datos, onClickMetrica }) => {
         <span
           style={{
             fontSize: "12px",
-            color: "#94a3b8",
-            backgroundColor: "#020617",
+            color: "var(--badge-text)",
+            backgroundColor: "var(--badge-bg)",
             padding: "2px 6px",
             borderRadius: "4px",
-            border: "1px solid #1e293b",
+            border: "1px solid var(--badge-border)",
             whiteSpace: "nowrap",
           }}
         >
           KVA:{" "}
-          <strong style={{ color: "#fde047" }}>{fmt(datos.kvaInicio)}</strong>
+          <strong style={{ color: "var(--header-energia)" }}>{fmt(datos.kvaInicio)}</strong>
         </span>
       </div>
 
@@ -1543,8 +1551,8 @@ const TarjetaEnergia = ({ datos, onClickMetrica }) => {
           className={claseUps}
           style={{
             width: "calc(50% - 3px)",
-            backgroundColor: colorCarga || "#022c22",
-            border: `1px solid ${colorCarga || "#064e3b"}`,
+            backgroundColor: colorCarga || "var(--badge-bg)",
+            border: `1px solid ${colorCarga || "var(--badge-border)"}`,
             boxShadow: colorCarga
               ? `0 0 12px 1px ${hexA(colorCarga, cargaCritica ? 0.8 : 0.45)}`
               : "none",
@@ -1615,6 +1623,30 @@ const IcetelProgramaVista = () => {
   // Si ya tenemos datos guardados en el navegador, arrancamos diciendo que NO estamos cargando desde cero
   const [cargando, setCargando] = useState(() => datosClima.length === 0);
   const [error, setError] = useState(false);
+
+  // Modo Claro / Oscuro con persistencia
+  const [tema, setTema] = useState(() => {
+    try {
+      return localStorage.getItem("icetel_tema") || "light";
+    } catch (e) {
+      return "light";
+    }
+  });
+
+  const alternarTema = useCallback(() => {
+    setTema((prev) => {
+      const nuevo = prev === "light" ? "dark" : "light";
+      try {
+        localStorage.setItem("icetel_tema", nuevo);
+      } catch (e) { }
+      document.documentElement.setAttribute("data-theme", nuevo);
+      return nuevo;
+    });
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", tema);
+  }, [tema]);
 
   // FIX PARPADEO: se elimina el estado `parpadeoOn` y su setInterval de
   // 800ms. Ya no hace falta: el parpadeo ahora es una animación CSS pura
@@ -1870,13 +1902,14 @@ const IcetelProgramaVista = () => {
         height: "100dvh",
         overflowY: "auto",
         WebkitOverflowScrolling: "touch",
-        backgroundColor: "#020617",
+        backgroundColor: "var(--bg-app)",
         padding: esPantallaGrande ? "14px" : "10px",
         boxSizing: "border-box",
-        color: "#f1f5f9",
+        color: "var(--text-primary)",
         fontFamily: "sans-serif",
         display: "flex",
         flexDirection: "column",
+        transition: "background-color 0.25s ease, color 0.25s ease",
       }}
     >
       {/* FIX PARPADEO: animación CSS pura. Corre en el compositor del
@@ -1905,7 +1938,7 @@ const IcetelProgramaVista = () => {
           justifyContent: "space-between",
           alignItems: esPantallaGrande ? "center" : "flex-start",
           marginBottom: "10px",
-          borderBottom: "1px solid #1e293b",
+          borderBottom: "1px solid var(--border-subtle)",
           paddingBottom: "8px",
           flexShrink: 0,
         }}
@@ -1915,18 +1948,42 @@ const IcetelProgramaVista = () => {
             style={{
               fontSize: esPantallaGrande ? "18px" : "16px",
               fontWeight: "bold",
+              color: "var(--text-primary)",
               margin: 0,
             }}
           >
             Icetel Visualización
           </h1>
-          <p style={{ fontSize: "11px", color: "#94a3b8", margin: 0 }}>
+          <p style={{ fontSize: "11px", color: "var(--text-muted)", margin: 0 }}>
             {cargando
               ? "Cargando..."
               : `Panel ${paginaActual + 1} de ${totalPaginas} (Rotación 10s)`}
           </p>
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
+          <button
+            onClick={alternarTema}
+            title={tema === "light" ? "Cambiar a Modo Oscuro" : "Cambiar a Modo Claro"}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              backgroundColor: "var(--bg-card)",
+              color: "var(--text-primary)",
+              border: "1px solid var(--border-card)",
+              boxShadow: "var(--shadow-card)",
+              fontWeight: "bold",
+              padding: "6px 12px",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontSize: "12px",
+              marginRight: "10px",
+              transition: "all 0.2s ease",
+            }}
+          >
+            <span style={{ fontSize: "13px" }}>{tema === "light" ? "🌙" : "☀️"}</span>
+            <span>{tema === "light" ? "Modo Oscuro" : "Modo Claro"}</span>
+          </button>
           <button
             onClick={abrirNovedades}
             style={{
@@ -1946,10 +2003,11 @@ const IcetelProgramaVista = () => {
           <button
             onClick={() => window.location.reload()}
             style={{
-              backgroundColor: "#0f172a",
+              backgroundColor: "var(--bg-card)",
               padding: "6px 10px",
               borderRadius: "6px",
-              border: "1px solid #1e293b",
+              border: "1px solid var(--border-card)",
+              boxShadow: "var(--shadow-card)",
               fontSize: "11px",
               fontWeight: "bold",
               color: error ? "#f59e0b" : "#10b981",
@@ -1988,8 +2046,8 @@ const IcetelProgramaVista = () => {
               marginBottom: "8px",
               textTransform: "uppercase",
               letterSpacing: "1px",
-              color: "#cbd5e1",
-              borderBottom: "2px solid #334155",
+              color: "var(--header-clima)",
+              borderBottom: "2px solid var(--header-clima-border)",
               paddingBottom: "4px",
               margin: "0 0 8px 0",
               flexShrink: 0,
@@ -2046,34 +2104,34 @@ const IcetelProgramaVista = () => {
           style={
             esPantallaGrande
               ? {
-                  width: "24px",
-                  flexShrink: 0,
-                  display: "flex",
-                  justifyContent: "center",
-                }
+                width: "24px",
+                flexShrink: 0,
+                display: "flex",
+                justifyContent: "center",
+              }
               : {
-                  height: "26px",
-                  flexShrink: 0,
-                  display: "flex",
-                  alignItems: "center",
-                }
+                height: "26px",
+                flexShrink: 0,
+                display: "flex",
+                alignItems: "center",
+              }
           }
         >
           <div
             style={
               esPantallaGrande
                 ? {
-                    width: "2px",
-                    height: "100%",
-                    backgroundColor: "#1e293b",
-                    borderRadius: "2px",
-                  }
+                  width: "2px",
+                  height: "100%",
+                  backgroundColor: "var(--divider)",
+                  borderRadius: "2px",
+                }
                 : {
-                    height: "2px",
-                    width: "100%",
-                    backgroundColor: "#1e293b",
-                    borderRadius: "2px",
-                  }
+                  height: "2px",
+                  width: "100%",
+                  backgroundColor: "var(--divider)",
+                  borderRadius: "2px",
+                }
             }
           ></div>
         </div>
@@ -2094,8 +2152,8 @@ const IcetelProgramaVista = () => {
               marginBottom: "8px",
               textTransform: "uppercase",
               letterSpacing: "1px",
-              color: "#fbbf24",
-              borderBottom: "2px solid #92400e",
+              color: "var(--header-energia)",
+              borderBottom: "2px solid var(--header-energia-border)",
               paddingBottom: "4px",
               margin: "0 0 8px 0",
               flexShrink: 0,

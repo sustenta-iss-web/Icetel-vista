@@ -1,18 +1,97 @@
 @import "tailwindcss";
 
-html, body, #root {
+:root,
+[data-theme="light"] {
+  --bg-app: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-subtle: #f8fafc;
+  --bg-modal: #ffffff;
+  --bg-modal-overlay: rgba(15, 23, 42, 0.6);
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --border-card: #cbd5e1;
+  --border-subtle: #e2e8f0;
+  --divider: #cbd5e1;
+  --badge-bg: #f8fafc;
+  --badge-border: #cbd5e1;
+  --badge-text: #475569;
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08);
+  --header-clima: #1e293b;
+  --header-clima-border: #94a3b8;
+  --header-energia: #b45309;
+  --header-energia-border: #f59e0b;
+  --metric-temp-bg: rgba(2, 132, 199, 0.08);
+  --metric-temp-border: rgba(2, 132, 199, 0.25);
+  --metric-temp-text: #0284c7;
+  --metric-hum-bg: rgba(14, 165, 233, 0.08);
+  --metric-hum-border: rgba(14, 165, 233, 0.25);
+  --metric-hum-text: #0891b2;
+  --metric-chiller-surt-bg: rgba(13, 148, 136, 0.08);
+  --metric-chiller-surt-border: rgba(13, 148, 136, 0.25);
+  --metric-chiller-surt-text: #0d9488;
+  --metric-chiller-ret-bg: rgba(2, 132, 199, 0.08);
+  --metric-chiller-ret-border: rgba(2, 132, 199, 0.25);
+  --metric-chiller-ret-text: #0284c7;
+  --scrollbar-thumb: #94a3b8;
+  --scrollbar-track: #e2e8f0;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg-app: #020617;
+  --bg-card: #0f172a;
+  --bg-card-subtle: rgba(15, 23, 42, 0.6);
+  --bg-modal: #0f172a;
+  --bg-modal-overlay: rgba(0, 0, 0, 0.8);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-card: #334155;
+  --border-subtle: #1e293b;
+  --divider: #1e293b;
+  --badge-bg: #020617;
+  --badge-border: #1e293b;
+  --badge-text: #94a3b8;
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --header-clima: #cbd5e1;
+  --header-clima-border: #334155;
+  --header-energia: #fbbf24;
+  --header-energia-border: #92400e;
+  --metric-temp-bg: rgba(30, 58, 138, 0.3);
+  --metric-temp-border: rgba(30, 58, 138, 0.6);
+  --metric-temp-text: #38bdf8;
+  --metric-hum-bg: rgba(8, 51, 68, 0.3);
+  --metric-hum-border: rgba(14, 116, 144, 0.5);
+  --metric-hum-text: #22d3ee;
+  --metric-chiller-surt-bg: rgba(19, 78, 74, 0.3);
+  --metric-chiller-surt-border: rgba(15, 118, 110, 0.5);
+  --metric-chiller-surt-text: #2dd4bf;
+  --metric-chiller-ret-bg: rgba(12, 74, 110, 0.3);
+  --metric-chiller-ret-border: rgba(3, 105, 161, 0.5);
+  --metric-chiller-ret-text: #38bdf8;
+  --scrollbar-thumb: #475569;
+  --scrollbar-track: #0f172a;
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #020617; /* slate-950 */
+  background-color: var(--bg-app);
+  color: var(--text-primary);
   overflow: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Scrollbar oscuro compatible */
+/* Scrollbar adaptativo */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #475569 #0f172a;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 *::-webkit-scrollbar {
@@ -21,10 +100,10 @@ html, body, #root {
 }
 
 *::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: var(--scrollbar-track);
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #475569;
+  background-color: var(--scrollbar-thumb);
   border-radius: 4px;
 }
